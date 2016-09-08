@@ -17,8 +17,10 @@
   </ion-list>
 
   <ion-item>
-    <ion-input placeholder="Write to device" [(ngModel)]="writeStr"></ion-input>
-    <button ion-item (click)="write(device.id)">Write</button>
+    <input type="number" placeholder="Write to red color" [(ngModel)]="redStr" />
+    <input type="number" placeholder="Write to green color" [(ngModel)]="greenStr" />
+    <input type="number" placeholder="Write to blue color" [(ngModel)]="blueStr" />
+    <button (click)="write(device.id)">Write</button>
   </ion-item>
 
   <ion-spinner *ngIf="connecting" name="circles"></ion-spinner>
