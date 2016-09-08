@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {BLE} from 'ionic-native';
-import {DEVICE_ID, SERVICE_ID, CHARACTERISTICS_ID} from '../../common/consts';
+import {SERVICE_ID, CHARACTERISTICS_ID} from '../../common/consts';
 
 @Component({
   templateUrl: 'build/pages/device/device.html'
