@@ -1,6 +1,6 @@
 'use strict';
 
-import bluetoothConnector from 'bluetoothConnector';
+import bluetoothConnector from '../common/bluetoothConnector';
 
 export default class bluetoothService {
   private service: any;

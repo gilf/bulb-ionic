@@ -1,17 +1,21 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Devices</ion-title>
+    <ion-buttons end>
+      <button (click)="startScanningDevices()">Scan</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="home">
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>app/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <ion-list inset>
+    <ion-item-sliding *ngFor="#device of devices" #slidingItem>
+      <button ion-item (click)="redirectToDevicePage(device)">
+        <h2>{{device.name}}</h2>
+        <p>{{device.id}}</p>
+        <p>{{device.rssi}}</p>
+      </button>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-spinner *ngIf="isScanning" name="circles"></ion-spinner>
 </ion-content>
