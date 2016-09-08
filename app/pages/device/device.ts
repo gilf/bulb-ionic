@@ -10,9 +10,9 @@ export class DevicePage {
   private device;
   private connecting: boolean = false;
   private characteristics = [];
-  private redStr = '';
-  private greenStr = '';
-  private blueStr = '';
+  private redStr = '00';
+  private greenStr = '00';
+  private blueStr = '00';
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams) {

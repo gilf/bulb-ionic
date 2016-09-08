@@ -17,9 +17,9 @@
   </ion-list>
 
   <ion-item>
-    <input type="number" placeholder="Write to red color" [(ngModel)]="redStr" />
-    <input type="number" placeholder="Write to green color" [(ngModel)]="greenStr" />
-    <input type="number" placeholder="Write to blue color" [(ngModel)]="blueStr" />
+    <input type="number" placeholder="Write red color" [(ngModel)]="redStr" min="0" max="255"/>
+    <input type="number" placeholder="Write green color" [(ngModel)]="greenStr" min="0" max="255" />
+    <input type="number" placeholder="Write blue color" [(ngModel)]="blueStr" min="0" max="255" />
     <button (click)="write(device.id)">Write</button>
   </ion-item>
 
