@@ -6,7 +6,7 @@
 
 <ion-content padding class="device-page">
   <ion-list inset>
-    <ion-item-sliding *ngFor="#characteristic of characteristics" #slidingItem>
+    <ion-item-sliding *ngFor="let characteristic of characteristics" #slidingItem>
       <button ion-item (click)="connectToCharacteristic(device.id, characteristic)">
         <h2>{{characteristic.characteristic}}</h2>
         <p>{{characteristic.properties}}</p>
