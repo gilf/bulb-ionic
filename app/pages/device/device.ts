@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {BLE} from 'ionic-native';
 import {getColorValue, SERVICE_ID, CHARACTERISTIC_ID} from '../../common/consts';
@@ -9,38 +9,39 @@ import {getColorValue, SERVICE_ID, CHARACTERISTIC_ID} from '../../common/consts'
 export class DevicePage {
   private device;
   private connecting: boolean = false;
-  private characteristics = [];
-  private redStr = '120';
-  private greenStr = '10';
-  private blueStr = '60';
+  private red = 128;
+  private green = 0;
+  private blue = 0;
 
-  constructor(private navCtrl: NavController,
-              private navParams: NavParams) {
+  constructor(
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private zone: NgZone
+  ) {
     this.device = this.navParams.get('device');
     this.connecting = true;
     this.connect(this.device.id);
   }
 
-  connect(deviceId:string) {
-    this.characteristics.length = 0;
-
-    BLE.connect(deviceId).subscribe((peripheralData) => {
-        console.log(peripheralData.characteristics);
-        this.characteristics = peripheralData.characteristics;
-        this.connecting = false;
+  connect(deviceId: string) {
+    BLE.connect(deviceId).subscribe(
+      (peripheralData) => {
+        this.zone.run(() => {
+          this.connecting = false;
+        });
       },
-      peripheralData => {
-        console.log('disconnected');
+      error => {
+        console.error('Error', error);
       });
   }
 
-  write(deviceId: string) {
-    BLE.connect(deviceId).subscribe((device) => {
-        let writeValue = getColorValue(this.redStr, this.greenStr, this.blueStr);
+  updateColor() {
+    BLE.connect(this.device.id).subscribe((device) => {
+      let writeValue = getColorValue(this.red, this.green, this.blue);
 
-        BLE.writeWithoutResponse(deviceId, SERVICE_ID, CHARACTERISTIC_ID , writeValue.buffer).then(() => {
-          BLE.disconnect(deviceId);
-        });
+      BLE.writeWithoutResponse(this.device.id, SERVICE_ID, CHARACTERISTIC_ID, writeValue.buffer).then(() => {
+        BLE.disconnect(this.device.id);
+      });
     });
   }
 }

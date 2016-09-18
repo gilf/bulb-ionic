@@ -5,22 +5,20 @@
 </ion-header>
 
 <ion-content padding class="device-page">
-  <ion-list inset>
-    <ion-item-sliding *ngFor="let characteristic of characteristics" #slidingItem>
-      <button ion-item (click)="connectToCharacteristic(device.id, characteristic)">
-        <h2>{{characteristic.characteristic}}</h2>
-        <p>{{characteristic.properties}}</p>
-        <p>{{characteristic.isNotifying}}</p>
-        <p>{{characteristic.service}}</p>
-      </button>
-    </ion-item-sliding>
-  </ion-list>
-
-  <ion-item>
-    <input type="number" placeholder="Write red color" [(ngModel)]="redStr" min="0" max="255"/>
-    <input type="number" placeholder="Write green color" [(ngModel)]="greenStr" min="0" max="255" />
-    <input type="number" placeholder="Write blue color" [(ngModel)]="blueStr" min="0" max="255" />
-    <button (click)="write(device.id)">Write</button>
+  <ion-item *ngIf="!connecting">
+    <ion-range [(ngModel)]="red" (ngModelChange)="updateColor()" min="0" max="255" class="red-color-picker">
+      <ion-icon range-left small name="sunny"></ion-icon>
+      <ion-icon range-right name="sunny"></ion-icon>
+    </ion-range>
+    <ion-range [(ngModel)]="green" (ngModelChange)="updateColor()" min="0" max="255" class="green-color-picker">
+      <ion-icon range-left small name="sunny"></ion-icon>
+      <ion-icon range-right name="sunny"></ion-icon>
+    </ion-range>
+    <ion-range [(ngModel)]="blue" (ngModelChange)="updateColor()" min="0" max="255" class="blue-color-picker">
+      <ion-icon range-left small name="sunny"></ion-icon>
+      <ion-icon range-right name="sunny"></ion-icon>
+    </ion-range>
+    <button (click)="updateColor()">Write</button>
   </ion-item>
 
   <ion-spinner *ngIf="connecting" name="circles"></ion-spinner>
