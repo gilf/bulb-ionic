@@ -30,6 +30,10 @@
   },
   "name": "bulb-ionic",
   "description": "bulb-ionic: An Ionic project",
+  "scripts": {
+    "start": "ionic serve",
+    "deploy:android": "ionic run android"
+  },
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",
