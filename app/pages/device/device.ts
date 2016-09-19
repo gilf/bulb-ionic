@@ -19,8 +19,15 @@ export class DevicePage {
     private zone: NgZone
   ) {
     this.device = this.navParams.get('device');
+  }
+
+  onPageWillEnter() {
     this.connecting = true;
     this.connect(this.device.id);
+  }
+
+  onPageWillLeave() {
+    BLE.disconnect(this.device.id);
   }
 
   connect(deviceId: string) {
@@ -36,12 +43,9 @@ export class DevicePage {
   }
 
   updateColor() {
-    BLE.connect(this.device.id).subscribe((device) => {
-      let writeValue = getColorValue(this.red, this.green, this.blue);
-
-      BLE.writeWithoutResponse(this.device.id, SERVICE_ID, CHARACTERISTIC_ID, writeValue.buffer).then(() => {
-        BLE.disconnect(this.device.id);
-      });
+    let writeValue = getColorValue(this.red, this.green, this.blue);
+    BLE.writeWithoutResponse(this.device.id, SERVICE_ID, CHARACTERISTIC_ID, writeValue.buffer).then(() => {
+      console.log('value written!');
     });
   }
 }
