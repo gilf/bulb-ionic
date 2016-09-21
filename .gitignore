@@ -9,3 +9,6 @@ plugins/
 .DS_Store
 Thumbs.db
 .vscode/.BROWSE.*
+release.cmd
+*.apk
+release.cmd
