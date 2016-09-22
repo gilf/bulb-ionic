@@ -18,6 +18,7 @@
   <ion-list>
     <ion-item-sliding *ngFor="let device of devices" #slidingItem>
       <button ion-item (click)="redirectToDevicePage(device)">
+        <ion-icon name="bulb" item-left></ion-icon>
         <h2>{{device.name}}</h2>
         <p>{{device.id}}</p>
         <p>{{device.rssi}}</p>
