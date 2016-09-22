@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {DevicePage} from '../device/device';
 import {BLE} from 'ionic-native';
@@ -11,28 +11,31 @@ export class HomePage {
   private devices = [];
   private isScanning: boolean = false;
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navCtrl: NavController, private zone: NgZone) {
   }
 
-  startScanningDevices() {
-    console.log('Scanning started!');
+  startScanning() {
     this.devices.length = 0;
     this.isScanning = true;
     BLE.startScan([SERVICE_ID]).subscribe(device => {
-      this.devices.push(device);
+      this.zone.run(() => {
+        this.devices.push(device);
+      });
     });
+  }
 
-    setTimeout(() => {
-      BLE.stopScan().then(() => {
-        console.log('Scanning has stopped!');
-        console.log(JSON.stringify(this.devices));
+  stopScanning() {
+    BLE.stopScan().then(() => {
+      this.zone.run(() => {
         this.isScanning = false;
       });
-    }, 3000);
+    });
   }
 
   redirectToDevicePage(device) {
-    console.log('Chosen device:', JSON.stringify(device));
+    if (this.isScanning) {
+      this.stopScanning();
+    }
     this.navCtrl.push(DevicePage, {
       device: device
     });
