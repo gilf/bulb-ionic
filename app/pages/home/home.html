@@ -14,8 +14,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="home">
-  <ion-list inset>
+<ion-content class="home">
+  <ion-list>
     <ion-item-sliding *ngFor="let device of devices" #slidingItem>
       <button ion-item (click)="redirectToDevicePage(device)">
         <h2>{{device.name}}</h2>
