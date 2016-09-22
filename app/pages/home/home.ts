@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {DevicePage} from '../device/device';
 import {BLE} from 'ionic-native';
+import {SERVICE_ID} from '../../common/consts';
 
 @Component({
   templateUrl: 'build/pages/home/home.html'
@@ -14,16 +15,16 @@ export class HomePage {
   }
 
   startScanningDevices() {
-    console.log("Scanning started!");
+    console.log('Scanning started!');
     this.devices.length = 0;
     this.isScanning = true;
-    BLE.startScan([]).subscribe(device => {
+    BLE.startScan([SERVICE_ID]).subscribe(device => {
       this.devices.push(device);
     });
 
     setTimeout(() => {
       BLE.stopScan().then(() => {
-        console.log("Scanning has stopped!");
+        console.log('Scanning has stopped!');
         console.log(JSON.stringify(this.devices));
         this.isScanning = false;
       });
