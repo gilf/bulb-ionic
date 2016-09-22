@@ -17,10 +17,15 @@ export class HomePage {
   startScanning() {
     this.devices.length = 0;
     this.isScanning = true;
-    BLE.startScan([SERVICE_ID]).subscribe(device => {
-      this.zone.run(() => {
-        this.devices.push(device);
+    BLE.enable().then(() => {
+      BLE.startScan([SERVICE_ID]).subscribe(device => {
+        this.zone.run(() => {
+          this.devices.push(device);
+        });
       });
+    }).catch(err => {
+      console.error('Failed to enable BLE', err);
+      this.isScanning = false;
     });
   }
 
