@@ -2,27 +2,13 @@
   <ion-navbar>
     <ion-title>Devices</ion-title>
     <ion-buttons end>
-      <button (click)="startScanning()" *ngIf="!isScanning">
+      <button (click)="startScanning()">
         <ion-icon name="bluetooth"></ion-icon>
         Scan
-      </button>
-      <button (click)="stopScanning()" *ngIf="isScanning">
-        <ion-spinner></ion-spinner>
-        Stop
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="home">
-  <ion-list>
-    <ion-item-sliding *ngFor="let device of devices" #slidingItem>
-      <button ion-item (click)="redirectToDevicePage(device)">
-        <ion-icon name="bulb" item-left></ion-icon>
-        <h2>{{device.name}}</h2>
-        <p>{{device.id}}</p>
-        <p>{{device.rssi}}</p>
-      </button>
-    </ion-item-sliding>
-  </ion-list>
 </ion-content>

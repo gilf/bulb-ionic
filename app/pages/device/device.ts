@@ -1,6 +1,5 @@
 import {Component, NgZone} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
-import {BLE} from 'ionic-native';
 import {getColorValue, SERVICE_ID, CHARACTERISTIC_ID} from '../../common/consts';
 
 @Component({
@@ -12,6 +11,7 @@ export class DevicePage {
   private red = 128;
   private green = 0;
   private blue = 0;
+  private characteristic;
 
   constructor(
     private navCtrl: NavController,
@@ -23,29 +23,21 @@ export class DevicePage {
 
   onPageWillEnter() {
     this.connecting = true;
-    this.connect(this.device.id);
+    this.device.gatt.connect()
+      .then(server => server.getPrimaryService(SERVICE_ID))
+      .then(service => service.getCharacteristic(CHARACTERISTIC_ID))
+      .then(characteristic => {
+        this.characteristic = characteristic;
+        this.connecting = false;
+      });
   }
 
   onPageWillLeave() {
-    BLE.disconnect(this.device.id);
-  }
-
-  connect(deviceId: string) {
-    BLE.connect(deviceId).subscribe(
-      (peripheralData) => {
-        this.zone.run(() => {
-          this.connecting = false;
-        });
-      },
-      error => {
-        console.error('Error', error);
-      });
+    this.device.gatt.disconnect();
   }
 
   updateColor() {
     let writeValue = getColorValue(this.red, this.green, this.blue);
-    BLE.writeWithoutResponse(this.device.id, SERVICE_ID, CHARACTERISTIC_ID, writeValue.buffer).then(() => {
-      console.log('value written!');
-    });
+    this.characteristic.writeValue(writeValue);
   }
 }
