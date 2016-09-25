@@ -1,4 +1,4 @@
-import {Component, NgZone} from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {getColorValue, SERVICE_ID, CHARACTERISTIC_ID} from '../../common/consts';
 
@@ -15,8 +15,7 @@ export class DevicePage {
 
   constructor(
     private navCtrl: NavController,
-    private navParams: NavParams,
-    private zone: NgZone
+    private navParams: NavParams
   ) {
     this.device = this.navParams.get('device');
   }

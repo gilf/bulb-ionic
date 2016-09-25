@@ -1,4 +1,4 @@
-import {Component, NgZone} from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {DevicePage} from '../device/device';
 import {SERVICE_ID} from '../../common/consts';
@@ -7,7 +7,7 @@ import {SERVICE_ID} from '../../common/consts';
   templateUrl: 'build/pages/home/home.html'
 })
 export class HomePage {
-  constructor(private navCtrl: NavController, private zone: NgZone) {
+  constructor(private navCtrl: NavController) {
   }
 
   startScanning() {
