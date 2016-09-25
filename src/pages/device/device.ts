@@ -1,17 +1,17 @@
-import {Component, NgZone} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
-import {BLE} from 'ionic-native';
-import {getColorValue, SERVICE_ID, CHARACTERISTIC_ID} from '../../common/consts';
+import { Component, NgZone } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
+import { BLE } from 'ionic-native';
+import { getColorValue, SERVICE_ID, CHARACTERISTIC_ID } from '../../common/consts';
 
 @Component({
-  templateUrl: 'build/pages/device/device.html'
+  templateUrl: 'device.html'
 })
 export class DevicePage {
-  private device;
-  private connecting: boolean = false;
-  private red = 128;
-  private green = 0;
-  private blue = 0;
+  device;
+  connecting: boolean = false;
+  red = 128;
+  green = 0;
+  blue = 0;
 
   constructor(
     private navCtrl: NavController,
@@ -21,12 +21,12 @@ export class DevicePage {
     this.device = this.navParams.get('device');
   }
 
-  onPageWillEnter() {
+  ionViewWillEnter() {
     this.connecting = true;
     this.connect(this.device.id);
   }
 
-  onPageWillLeave() {
+  ionViewWillLeave() {
     BLE.disconnect(this.device.id);
   }
 

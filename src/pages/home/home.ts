@@ -1,15 +1,15 @@
-import {Component, NgZone} from '@angular/core';
-import {NavController} from 'ionic-angular';
-import {DevicePage} from '../device/device';
-import {BLE} from 'ionic-native';
-import {SERVICE_ID} from '../../common/consts';
+import { Component, NgZone } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { DevicePage } from '../device/device';
+import { BLE } from 'ionic-native';
+import { SERVICE_ID } from '../../common/consts';
 
 @Component({
-  templateUrl: 'build/pages/home/home.html'
+  templateUrl: 'home.html'
 })
 export class HomePage {
-  private devices = [];
-  private isScanning: boolean = false;
+  devices = [];
+  isScanning: boolean = false;
 
   constructor(private navCtrl: NavController, private zone: NgZone) {
   }
