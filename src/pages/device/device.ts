@@ -30,6 +30,10 @@ export class DevicePage {
       .then(characteristic => {
         this.characteristic = characteristic;
         this.connecting = false;
+      })
+      .catch(err => {
+        console.error('BLE Connection failed!', err);
+        this.connecting = false;
       });
   }
 
