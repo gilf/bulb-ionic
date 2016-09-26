@@ -1,3 +1,5 @@
+/// <reference types="web-bluetooth-typings" />
+
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {DevicePage} from '../device/device';
@@ -11,7 +13,7 @@ export class HomePage {
   }
 
   startScanning() {
-    (navigator as any).bluetooth.requestDevice({
+    navigator.bluetooth.requestDevice({
       filters: [{ services: [SERVICE_ID] }]
     }).then(device => this.redirectToDevicePage(device));
   }
