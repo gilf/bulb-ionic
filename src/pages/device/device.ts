@@ -3,15 +3,15 @@ import {NavController, NavParams} from 'ionic-angular';
 import {getColorValue, SERVICE_ID, CHARACTERISTIC_ID} from '../../common/consts';
 
 @Component({
-  templateUrl: 'build/pages/device/device.html'
+  templateUrl: 'device.html'
 })
 export class DevicePage {
-  private device;
-  private connecting: boolean = false;
-  private red = 128;
-  private green = 0;
-  private blue = 0;
-  private characteristic;
+  device;
+  characteristic;
+  connecting: boolean = false;
+  red = 128;
+  green = 0;
+  blue = 0;
 
   constructor(
     private navCtrl: NavController,
@@ -20,7 +20,7 @@ export class DevicePage {
     this.device = this.navParams.get('device');
   }
 
-  onPageWillEnter() {
+  ionViewWillEnter() {
     this.connecting = true;
     this.device.gatt.connect()
       .then(server => server.getPrimaryService(SERVICE_ID))
@@ -31,7 +31,7 @@ export class DevicePage {
       });
   }
 
-  onPageWillLeave() {
+  ionViewWillLeave() {
     this.device.gatt.disconnect();
   }
 
