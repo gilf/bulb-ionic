@@ -1,3 +1,5 @@
+/// <reference types="web-bluetooth-typings" />
+
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {getColorValue, SERVICE_ID, CHARACTERISTIC_ID} from '../../common/consts';
@@ -6,8 +8,8 @@ import {getColorValue, SERVICE_ID, CHARACTERISTIC_ID} from '../../common/consts'
   templateUrl: 'device.html'
 })
 export class DevicePage {
-  device;
-  characteristic;
+  device: BluetoothDevice;
+  characteristic: BluetoothRemoteGATTCharacteristic;
   connecting: boolean = false;
   red = 128;
   green = 0;
@@ -27,6 +29,10 @@ export class DevicePage {
       .then(service => service.getCharacteristic(CHARACTERISTIC_ID))
       .then(characteristic => {
         this.characteristic = characteristic;
+        this.connecting = false;
+      })
+      .catch(err => {
+        console.error('BLE Connection failed!', err);
         this.connecting = false;
       });
   }
