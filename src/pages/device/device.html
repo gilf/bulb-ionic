@@ -6,15 +6,18 @@
 
 <ion-content padding class="device-page">
   <ion-item *ngIf="!connecting">
-    <ion-range [(ngModel)]="red" (ngModelChange)="updateColor()" min="0" max="255" class="red-color-picker">
+    <ion-range [(ngModel)]="red" (ngModelChange)="updateColor()"
+               min="0" max="255" class="red-color-picker">
       <ion-icon range-left small name="sunny"></ion-icon>
       <ion-icon range-right name="sunny"></ion-icon>
     </ion-range>
-    <ion-range [(ngModel)]="green" (ngModelChange)="updateColor()" min="0" max="255" class="green-color-picker">
+    <ion-range [(ngModel)]="green" (ngModelChange)="updateColor()"
+               min="0" max="255" class="green-color-picker">
       <ion-icon range-left small name="sunny"></ion-icon>
       <ion-icon range-right name="sunny"></ion-icon>
     </ion-range>
-    <ion-range [(ngModel)]="blue" (ngModelChange)="updateColor()" min="0" max="255" class="blue-color-picker">
+    <ion-range [(ngModel)]="blue" (ngModelChange)="updateColor()"
+               min="0" max="255" class="blue-color-picker">
       <ion-icon range-left small name="sunny"></ion-icon>
       <ion-icon range-right name="sunny"></ion-icon>
     </ion-range>
