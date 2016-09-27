@@ -7,8 +7,4 @@ import { NavController } from 'ionic-angular';
 export class ContactPage {
   constructor(private navCtrl: NavController) {
   }
-
-  openLink(url: string) {
-    window.open(url, '_blank');
-  }
 }
