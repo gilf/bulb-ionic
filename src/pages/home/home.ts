@@ -18,7 +18,7 @@ export class HomePage {
     this.devices.length = 0;
     this.isScanning = true;
     BLE.enable().then(() => {
-      BLE.startScan([SERVICE_ID]).subscribe(device => {
+      BLE.startScan([SERVICE_ID.toString(16)]).subscribe(device => {
         this.zone.run(() => {
           this.devices.push(device);
         });

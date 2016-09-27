@@ -32,7 +32,7 @@ export class DevicePage {
 
   connect(deviceId: string) {
     BLE.connect(deviceId).subscribe(
-      (peripheralData) => {
+      () => {
         this.zone.run(() => {
           this.connecting = false;
         });
@@ -44,8 +44,9 @@ export class DevicePage {
 
   updateColor() {
     let writeValue = getColorValue(this.red, this.green, this.blue);
-    BLE.writeWithoutResponse(this.device.id, SERVICE_ID, CHARACTERISTIC_ID, writeValue.buffer).then(() => {
-      console.log('value written!');
-    });
+    BLE.writeWithoutResponse(this.device.id,
+                             SERVICE_ID.toString(16),
+                             CHARACTERISTIC_ID.toString(16),
+                             writeValue.buffer);
   }
 }
