@@ -9,15 +9,15 @@
 <ion-content>
   <ion-list>
     <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
+    <ion-item (click)="openLink('https://twitter.com/AngularConnect')">
       <ion-icon name="logo-angular" item-left></ion-icon>
       @angularconnect
     </ion-item>
-    <ion-item>
+    <ion-item (click)="openLink('https://twitter.com/GilFink')">
       <ion-icon name="person" item-left></ion-icon>
       @gilfink
     </ion-item>
-    <ion-item>
+    <ion-item (click)="openLink('https://twitter.com/UriShaked')">
       <ion-icon name="person" item-left></ion-icon>
       @urishaked
     </ion-item>
