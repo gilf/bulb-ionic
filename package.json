@@ -8,6 +8,7 @@
   "scripts": {
     "build": "ionic-app-scripts build",
     "watch": "ionic-app-scripts watch",
+    "copy": "ionic-app-scripts copy",
     "serve:before": "watch",
     "emulate:before": "build",
     "deploy:before": "build",
@@ -34,5 +35,8 @@
     "@angular/compiler-cli": "0.6.2",
     "@ionic/app-scripts": "latest",
     "typescript": "2.0.2"
+  },
+  "config": {
+    "ionic_copy": "./config/copy.config.js"
   }
 }

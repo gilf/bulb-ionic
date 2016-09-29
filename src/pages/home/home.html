@@ -11,4 +11,14 @@
 </ion-header>
 
 <ion-content class="home">
+  <div padding *ngIf="webBluetoothSupported">
+    <h3>Welcome to AngularConnect !</h3>
+    <p>Plug your smart bulb and then press the <strong>Scan</strong> button to get started</p>
+  </div>
+  <div padding *ngIf="!webBluetoothSupported">
+    <h3>Web Bluetooth not supported :-(</h3>
+    <p>
+      <a href="https://medium.com/@urish/start-building-with-web-bluetooth-and-progressive-web-apps-6534835959a6#.3fkwygkx2" target="_blank">Click here</a> to learn more about Web Bluetooth and supported browsers
+    </p>
+  </div>
 </ion-content>
