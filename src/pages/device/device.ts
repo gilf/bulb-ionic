@@ -1,7 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { BLE } from 'ionic-native';
-import { getColorValue, SERVICE_ID, CHARACTERISTIC_ID } from '../../common/consts';
+import { BLE, NativeStorage } from 'ionic-native';
+import { getColorValue, SERVICE_ID, CHARACTERISTIC_ID, BULB_COLORS } from '../../common/consts';
 
 @Component({
   templateUrl: 'device.html'
@@ -36,6 +36,16 @@ export class DevicePage {
       () => {
         this.zone.run(() => {
           this.connecting = false;
+          NativeStorage.getItem(BULB_COLORS).then((data) => {
+            if (data) {
+              let bulb = JSON.parse(data);
+              this.red = bulb.red;
+              this.green = bulb.green;
+              this.blue = bulb.blue;
+              this.warmWhite = bulb.warmWhite;
+              this.updateColor();
+            }
+          });
         });
       },
       error => {
@@ -49,5 +59,6 @@ export class DevicePage {
                              SERVICE_ID.toString(16),
                              CHARACTERISTIC_ID.toString(16),
                              writeValue.buffer);
+    NativeStorage.setItem(BULB_COLORS, { red: this.red, green: this.green, blue: this.blue, warmWhite: this.warmWhite});
   }
 }
