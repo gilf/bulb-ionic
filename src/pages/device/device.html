@@ -21,6 +21,11 @@
       <ion-icon range-left small name="sunny"></ion-icon>
       <ion-icon range-right name="sunny"></ion-icon>
     </ion-range>
+    <ion-range [(ngModel)]="warmWhite" (ngModelChange)="updateColor()"
+               min="0" max="255" class="warm-color-picker">
+      <ion-icon range-left small name="sunny"></ion-icon>
+      <ion-icon range-right name="sunny"></ion-icon>
+    </ion-range>
   </ion-item>
 
   <ion-spinner *ngIf="connecting" name="circles"></ion-spinner>

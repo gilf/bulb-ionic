@@ -12,6 +12,7 @@ export class DevicePage {
   red = 128;
   green = 0;
   blue = 0;
+  warmWhite = 0;
 
   constructor(
     private navCtrl: NavController,
@@ -43,7 +44,7 @@ export class DevicePage {
   }
 
   updateColor() {
-    let writeValue = getColorValue(this.red, this.green, this.blue);
+    let writeValue = getColorValue(this.red, this.green, this.blue, this.warmWhite);
     BLE.writeWithoutResponse(this.device.id,
                              SERVICE_ID.toString(16),
                              CHARACTERISTIC_ID.toString(16),
