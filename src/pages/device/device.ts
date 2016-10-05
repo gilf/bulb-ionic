@@ -1,5 +1,3 @@
-/// <reference types="web-bluetooth-typings" />
-
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {getColorValue, SERVICE_ID, CHARACTERISTIC_ID} from '../../common/consts';
