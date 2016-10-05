@@ -1,5 +1,3 @@
-/// <reference types="web-bluetooth-typings" />
-
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { DevicePage } from '../device/device';
