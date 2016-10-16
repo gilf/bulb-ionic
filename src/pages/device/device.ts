@@ -1,7 +1,10 @@
 import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { BLE, NativeStorage } from 'ionic-native';
-import { getColorValue, getWhiteValue, SERVICE_ID, CHARACTERISTIC_ID, BULB_COLORS } from '../../common/consts';
+import { BLE } from 'ionic-native';
+import {
+  getColorValue, getWhiteValue, serviceId, charasteristicId, notificationCharacteristicId,
+  notificationServiceId, readBulbStateCommand
+} from '../../common/consts';
 
 @Component({
   templateUrl: 'device.html'
@@ -37,16 +40,7 @@ export class DevicePage {
       () => {
         this.zone.run(() => {
           this.connecting = false;
-          NativeStorage.getItem(BULB_COLORS).then((data) => {
-            if (data) {
-              let bulb = JSON.parse(data);
-              this.red = bulb.red;
-              this.green = bulb.green;
-              this.blue = bulb.blue;
-              this.warmWhite = bulb.warmWhite;
-              this.updateColor();
-            }
-          });
+          this.readBulbState();
         });
       },
       error => {
@@ -54,21 +48,35 @@ export class DevicePage {
       });
   }
 
-  updateColor() {
-    let writeValue = getColorValue(this.red, this.green, this.blue);
+  private sendCommand(value: Uint8Array) {
     BLE.writeWithoutResponse(this.device.id,
-                             SERVICE_ID.toString(16),
-                             CHARACTERISTIC_ID.toString(16),
-                             writeValue.buffer);
-    NativeStorage.setItem(BULB_COLORS, { red: this.red, green: this.green, blue: this.blue, warmWhite: this.warmWhite});
+      serviceId.toString(16),
+      charasteristicId.toString(16),
+      value.buffer);
+
+  }
+
+  private onBulbStateReceived(data: Uint8Array) {
+    if (data[0] === 0x66) {
+      this.red = data[6];
+      this.green = data[7];
+      this.blue = data[8];
+      this.warmWhite = data[9];
+      this.mode = (data[3] === 0x4b) ? 'white' : 'rgb';
+    }
+  }
+
+  readBulbState() {
+    BLE.startNotification(this.device.id, notificationServiceId.toString(16), notificationCharacteristicId.toString(16))
+      .subscribe(buffer => this.zone.run(() => this.onBulbStateReceived(new Uint8Array(buffer))));
+    this.sendCommand(new Uint8Array(readBulbStateCommand));
+  }
+
+  updateColor() {
+    this.sendCommand(getColorValue(this.red, this.green, this.blue));
   }
 
   updateWhite() {
-    let writeValue = getWhiteValue(this.warmWhite);
-    BLE.writeWithoutResponse(this.device.id,
-                             SERVICE_ID.toString(16),
-                             CHARACTERISTIC_ID.toString(16),
-                             writeValue.buffer);
-    NativeStorage.setItem(BULB_COLORS, { red: this.red, green: this.green, blue: this.blue, warmWhite: this.warmWhite});
+    this.sendCommand(getWhiteValue(this.warmWhite));
   }
 }
