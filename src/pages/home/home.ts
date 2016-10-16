@@ -2,7 +2,7 @@ import { Component, NgZone } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { DevicePage } from '../device/device';
 import { BLE } from 'ionic-native';
-import { SERVICE_ID } from '../../common/consts';
+import { serviceId } from '../../common/consts';
 
 @Component({
   templateUrl: 'home.html'
@@ -22,7 +22,7 @@ export class HomePage {
     this.devices.length = 0;
     this.isScanning = true;
     this.enableBLE().then(() => {
-      BLE.startScan([SERVICE_ID.toString(16)]).subscribe(device => {
+      BLE.startScan([serviceId.toString(16)]).subscribe(device => {
         this.zone.run(() => {
           this.devices.push(device);
         });
