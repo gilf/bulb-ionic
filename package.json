@@ -13,7 +13,9 @@
     "emulate:before": "build",
     "deploy:before": "build",
     "build:before": "build",
-    "run:before": "build"
+    "run:before": "build",
+    "deploy": "npm run build && npm run deploy:gh-pages",
+    "deploy:gh-pages": "gh-pages -d www -r git@github.com:urish/angularconnect-bulb.git"
   },
   "dependencies": {
     "@angular/common": "2.0.0",
@@ -34,6 +36,7 @@
   "devDependencies": {
     "@angular/compiler-cli": "0.6.2",
     "@ionic/app-scripts": "latest",
+    "gh-pages": "0.11.0",
     "typescript": "2.0.2"
   },
   "config": {
