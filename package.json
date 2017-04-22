@@ -6,6 +6,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "start": "ionic serve --address 127.0.0.1",
     "build": "ionic-app-scripts build",
     "watch": "ionic-app-scripts watch",
     "copy": "ionic-app-scripts copy",
