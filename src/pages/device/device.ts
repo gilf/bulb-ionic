@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
-import {getColorValue, SERVICE_ID, CHARACTERISTIC_ID} from '../../common/consts';
+import {getColorValue, getWhiteValue, SERVICE_ID, CHARACTERISTIC_ID} from '../../common/consts';
 
 @Component({
   templateUrl: 'device.html'
@@ -9,9 +9,11 @@ export class DevicePage {
   device: BluetoothDevice;
   characteristic: BluetoothRemoteGATTCharacteristic;
   connecting: boolean = false;
+  mode: 'rgb' | 'white' = 'rgb';
   red = 128;
   green = 0;
   blue = 0;
+  warmWhite = 0;
 
   constructor(
     private navCtrl: NavController,
@@ -41,6 +43,11 @@ export class DevicePage {
 
   updateColor() {
     let writeValue = getColorValue(this.red, this.green, this.blue);
+    this.characteristic.writeValue(writeValue);
+  }
+
+  updateWhite() {
+    let writeValue = getWhiteValue(this.warmWhite);
     this.characteristic.writeValue(writeValue);
   }
 }
