@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { DevicePage } from '../device/device';
-import { SERVICE_ID } from '../../common/consts';
+import { serviceId, notificationServiceId } from '../../common/consts';
 import { AlertController } from 'ionic-angular';
 
 @Component({
@@ -24,7 +24,8 @@ export class HomePage {
       return;
     }
     navigator.bluetooth.requestDevice({
-      filters: [{ services: [SERVICE_ID] }]
+      filters: [{ services: [serviceId] }],
+      optionalServices: [notificationServiceId]
     }).then(device => this.redirectToDevicePage(device));
   }
 

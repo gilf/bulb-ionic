@@ -1,24 +1,40 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>{{device.name}}</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<ion-title>{{device.name}}</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content padding class="device-page">
-  <ion-item *ngIf="!connecting">
-    <ion-range [(ngModel)]="red" (ngModelChange)="updateColor()" min="0" max="255" class="red-color-picker">
-      <ion-icon range-left small name="sunny"></ion-icon>
-      <ion-icon range-right name="sunny"></ion-icon>
-    </ion-range>
-    <ion-range [(ngModel)]="green" (ngModelChange)="updateColor()" min="0" max="255" class="green-color-picker">
-      <ion-icon range-left small name="sunny"></ion-icon>
-      <ion-icon range-right name="sunny"></ion-icon>
-    </ion-range>
-    <ion-range [(ngModel)]="blue" (ngModelChange)="updateColor()" min="0" max="255" class="blue-color-picker">
-      <ion-icon range-left small name="sunny"></ion-icon>
-      <ion-icon range-right name="sunny"></ion-icon>
-    </ion-range>
-  </ion-item>
+	<ion-segment [(ngModel)]="mode" *ngIf="!connecting">
+		<ion-segment-button value="rgb">
+			RGB
+		</ion-segment-button>
+		<ion-segment-button value="white">
+			Warm White
+		</ion-segment-button>
+	</ion-segment>
 
-  <ion-spinner *ngIf="connecting" name="circles"></ion-spinner>
+	<ion-item *ngIf="!connecting && mode=='rgb'">
+		<ion-range [(ngModel)]="red" (ngModelChange)="updateColor()" min="0" max="255" class="red-color-picker">
+			<ion-icon range-left small name="sunny"></ion-icon>
+			<ion-icon range-right name="sunny"></ion-icon>
+		</ion-range>
+		<ion-range [(ngModel)]="green" (ngModelChange)="updateColor()" min="0" max="255" class="green-color-picker">
+			<ion-icon range-left small name="sunny"></ion-icon>
+			<ion-icon range-right name="sunny"></ion-icon>
+		</ion-range>
+		<ion-range [(ngModel)]="blue" (ngModelChange)="updateColor()" min="0" max="255" class="blue-color-picker">
+			<ion-icon range-left small name="sunny"></ion-icon>
+			<ion-icon range-right name="sunny"></ion-icon>
+		</ion-range>
+	</ion-item>
+
+	<ion-item *ngIf="!connecting && mode=='white'">
+		<ion-range [(ngModel)]="warmWhite" (ngModelChange)="updateWhite()" min="0" max="255" class="warm-color-picker">
+			<ion-icon range-left small name="sunny"></ion-icon>
+			<ion-icon range-right name="sunny"></ion-icon>
+		</ion-range>
+	</ion-item>
+	
+	<ion-spinner *ngIf="connecting" name="circles"></ion-spinner>
 </ion-content>
